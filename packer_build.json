@@ -1,0 +1,30 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": ""
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "eu-west-1",
+    "source_ami": "ami-b9bd25ca",
+    "instance_type": "g2.2xlarge",
+    "ssh_username": "ec2-user",
+    "ami_name": "packer-example {{timestamp}}"
+  }]
+
+  "provisioners": [{
+    "type": "shell",
+    "inline": [
+      "sleep 30",
+      "sudo yum update -y",
+      "wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run"
+      "sudo yum install libXmu-devel libXi-devel mesa-libGLU-devel git cmake -y"
+      "sudo sh cuda_7.5.18_linux.run --toolkit --samples --silent"
+      "git clone https://github.com/PointCloudLibrary/pcl.git"
+
+    ]
+  }]
+
+}
