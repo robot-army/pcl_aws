@@ -8,9 +8,9 @@
     "access_key": "{{user `aws_access_key`}}",
     "secret_key": "{{user `aws_secret_key`}}",
     "region": "eu-west-1",
-    "source_ami": "ami-b9bd25ca",
+    "source_ami": "ami-47a23a30",
     "instance_type": "g2.2xlarge",
-    "ssh_username": "ec2-user",
+    "ssh_username": "ubuntu",
     "ami_name": "packer-example {{timestamp}}"
   }]
 
@@ -18,11 +18,11 @@
     "type": "shell",
     "inline": [
       "sleep 30",
-      "sudo yum update -y",
-      "wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run"
-      "sudo yum install libXmu-devel libXi-devel mesa-libGLU-devel git cmake -y"
-      "sudo sh cuda_7.5.18_linux.run --toolkit --samples --silent"
-      "git clone https://github.com/PointCloudLibrary/pcl.git"
+	"wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.5-18_amd64.deb",
+	"sudo dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb",
+	"sudo apt-get update -y",
+	"sudo apt-get upgrade -y",
+	"sudo apt-get install -y opencl-headers build-essential protobuf-compiler libprotoc-dev libboost-all-dev libleveldb-dev hdf5-tools libhdf5-serial-dev libopencv-core-dev  libopencv-highgui-dev libsnappy-dev libsnappy1 libatlas-base-dev cmake libstdc++6-4.8-dbg libgoogle-glog0 libgoogle-glog-dev libgflags-dev liblmdb-dev git python-pip gfortran",
 
     ]
   }]
